@@ -10,6 +10,7 @@ use App\Services\Slot\SlotWebhookValidator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+
 class GetBalanceController extends Controller
 {
     public function getBalance(SlotWebhookRequest $request)
@@ -19,7 +20,13 @@ class GetBalanceController extends Controller
             $validator = SlotWebhookValidator::make($request)->validate();
 
             if ($validator->fails()) {
-                Log::warning('GetBalanceController: Validation failed', ['errors' => $validator->getResponse()]);
+                Log::warning('GetBalanceController: Validation failed', [
+                    'errors' => $validator->getResponse(),
+                    'method' => $request->getMethodName(),
+                    'operator_code' => $request->getOperatorCode(),
+                    'secret_key' => config('game.api.secret_key'),
+                    'api_url' => config('game.api.url'),
+                ]);
                 return $validator->getResponse();
             }
 
@@ -34,7 +41,6 @@ class GetBalanceController extends Controller
             );
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('GetBalanceController: Exception occurred', ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
 
             return response()->json([
                 'message' => $e->getMessage(),
