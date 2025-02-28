@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Slot;
 
 use App\Models\User;
-use App\Services\Slot\SlotWebhookValidator;
+use App\Services\SlotWebhookValidator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class SlotWebhookRequest extends FormRequest
 {
@@ -26,25 +26,8 @@ class SlotWebhookRequest extends FormRequest
      */
     public function rules(): array
     {
-        $transaction_rules = [];
-
-        if (in_array($this->getMethodName(), ['getbalance', 'buyin', 'buyout'])) {
-            $transaction_rules['Transactions'] = ['nullable'];
-            if ($this->getMethodName() !== 'getbalance') {
-                $transaction_rules['Transaction'] = ['required'];
-            }
-        } else {
-            $transaction_rules['Transactions'] = ['required'];
-        }
-
         return [
-            'MemberName' => ['required'],
-            'OperatorCode' => ['required'],
-            'ProductID' => ['required'],
-            'MessageID' => ['required'],
-            'RequestTime' => ['required'],
-            'Sign' => ['required'],
-            ...$transaction_rules,
+
         ];
     }
 
@@ -57,46 +40,39 @@ class SlotWebhookRequest extends FormRequest
 
     public function getMember()
     {
-        if (! isset($this->member)) {
-            $this->member = User::where('user_name', $this->getMemberName())->first();
-        }
+        $playerId = $this->getMemberName();
 
-        return $this->member;
+        return User::where('user_name', $playerId)->first();
     }
 
     public function getMemberName()
     {
-        return $this->get('MemberName');
-    }
-
-    public function getProductID()
-    {
-        return $this->get('ProductID');
-    }
-
-    public function getMessageID()
-    {
-        return $this->get('MessageID');
+        return $this->get('PlayerId');
     }
 
     public function getMethodName()
     {
-        return strtolower(str($this->url())->explode('/')->last());
+        return str($this->url())->explode('/')->last();
     }
 
     public function getOperatorCode()
     {
-        return $this->get('OperatorCode');
+        return $this->get('OperatorId');
     }
 
     public function getRequestTime()
     {
-        return $this->get('RequestTime');
+        return $this->get('RequestDateTime');
     }
 
     public function getSign()
     {
-        return $this->get('Sign');
+        return $this->get('Signature');
+    }
+
+    public function test()
+    {
+        return 'test';
     }
 
     public function getTransactions()
