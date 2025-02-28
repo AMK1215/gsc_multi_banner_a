@@ -12,6 +12,13 @@ use App\Http\Controllers\Api\V1\Webhook\GetBalanceController;
 use App\Http\Controllers\Api\V1\Webhook\PlaceBetController;
 use App\Http\Controllers\Api\V1\Webhook\RollbackController;
 use App\Http\Controllers\Api\V1\Webhook\GameResultController;
+use App\Http\Controllers\Api\V1\Webhook\CancelBetController;
+use App\Http\Controllers\Api\V1\Webhook\PushBetController;
+use App\Http\Controllers\Api\V1\Webhook\BuyInController;
+use App\Http\Controllers\Api\V1\Webhook\BuyOutController;
+use App\Http\Controllers\Api\V1\Webhook\BonusController;
+use App\Http\Controllers\Api\V1\Webhook\JackPotController;
+use App\Http\Controllers\Api\V1\Webhook\MobileLoginController;
 use App\Http\Controllers\Api\V1\Monitor\DataVisualizationController;
 use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\Shan\ShanTransactionController;
@@ -40,16 +47,13 @@ Route::group(['prefix' => 'Seamless'], function () {
     Route::post('Rollback', [RollbackController::class, 'rollback']);
     // Route::group(["middleware" => ["webhook_log"]], function(){
     // Route::post('GetGameList', [LaunchGameController::class, 'getGameList']);
-
-
-
-    // Route::post('CancelBet', [CancelBetController::class, 'cancelBet']);
-    // Route::post('BuyIn', [BuyInController::class, 'buyIn']);
-    // Route::post('BuyOut', [BuyOutController::class, 'buyOut']);
-    // Route::post('PushBet', [PushBetController::class, 'pushBet']);
-    // Route::post('Bonus', [BonusController::class, 'bonus']);
-    // Route::post('Jackpot', [JackPotController::class, 'jackPot']);
-    // Route::post('MobileLogin', [MobileLoginController::class, 'MobileLogin']);
+    Route::post('CancelBet', [CancelBetController::class, 'cancelBet']);
+    Route::post('BuyIn', [BuyInController::class, 'buyIn']);
+    Route::post('BuyOut', [BuyOutController::class, 'buyOut']);
+    Route::post('PushBet', [PushBetController::class, 'pushBet']);
+    Route::post('Bonus', [BonusController::class, 'bonus']);
+    Route::post('Jackpot', [JackPotController::class, 'jackPot']);
+    Route::post('MobileLogin', [MobileLoginController::class, 'MobileLogin']);
     // });
 });
 
