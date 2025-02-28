@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Api\V1\DepositRequestController;
 use App\Http\Controllers\Api\V1\GetAdminSiteLogoNameController;
 use App\Http\Controllers\Api\V1\Webhook\GetBalanceController;
+use App\Http\Controllers\Api\V1\Webhook\PlaceBetController;
 use App\Http\Controllers\Api\V1\Monitor\DataVisualizationController;
 use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\Shan\ShanTransactionController;
@@ -37,8 +38,7 @@ Route::group(['prefix' => 'Seamless'], function () {
     // Route::post('GetGameList', [LaunchGameController::class, 'getGameList']);
     // Route::post('GameResult', [GameResultController::class, 'gameResult']);
     // Route::post('Rollback', [RollbackController::class, 'rollback']);
-    // //Route::post('PlaceBet', [PlaceBetController::class, 'placeBet']);
-    // Route::post('PlaceBet', [VersionNewPlaceBetController::class, 'placeBetNew']);
+    Route::post('PlaceBet', [PlaceBetController::class, 'placeBetNew']);
     // Route::post('CancelBet', [CancelBetController::class, 'cancelBet']);
     // Route::post('BuyIn', [BuyInController::class, 'buyIn']);
     // Route::post('BuyOut', [BuyOutController::class, 'buyOut']);
