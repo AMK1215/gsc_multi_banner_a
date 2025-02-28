@@ -8,34 +8,19 @@ use App\Http\Controllers\Api\V1\BannerController;
 use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Api\V1\DepositRequestController;
 use App\Http\Controllers\Api\V1\GetAdminSiteLogoNameController;
-use App\Http\Controllers\Api\V1\NewVersion\PlaceBetWebhookController;
-use App\Http\Controllers\Api\V1\GetBalanceController;
+use App\Http\Controllers\Api\V1\Webhook\GetBalanceController;
 use App\Http\Controllers\Api\V1\Monitor\DataVisualizationController;
 use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\Shan\ShanTransactionController;
 use App\Http\Controllers\Api\V1\Slot\GameController;
-use App\Http\Controllers\Api\V1\Slot\GetDaySummaryController;
-use App\Http\Controllers\Api\V1\Slot\GetGameListByProviderController;
-use App\Http\Controllers\Api\V1\Slot\GetGameProviderController;
 use App\Http\Controllers\Api\V1\Slot\LaunchGameController;
 use App\Http\Controllers\Api\V1\TransactionController;
 use App\Http\Controllers\Api\V1\WagerController;
-use App\Http\Controllers\Api\V1\Webhook\AdjustmentController;
-use App\Http\Controllers\Api\V1\Webhook\BetController;
-use App\Http\Controllers\Api\V1\Webhook\BetNResultController;
-use App\Http\Controllers\Api\V1\Webhook\BetResultController;
-use App\Http\Controllers\Api\V1\Webhook\CancelBetController;
-use App\Http\Controllers\Api\V1\Webhook\CancelBetNewVersionController;
-use App\Http\Controllers\Api\V1\Webhook\CancelBetNResultController;
-use App\Http\Controllers\Api\V1\Webhook\NewBetNResultController;
-use App\Http\Controllers\Api\V1\Webhook\RewardController;
 use App\Http\Controllers\Api\V1\WithDrawRequestController;
 use App\Http\Controllers\Api\Webhook\TestingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\Webhook\NewBetController;
-use App\Http\Controllers\Api\V1\Webhook\NewBetResultController;
-use App\Http\Controllers\Api\V1\Webhook\BetNResulNewController;
+
 
 
 Route::post('/login', [AuthController::class, 'login']);
