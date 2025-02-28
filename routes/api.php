@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\DepositRequestController;
 use App\Http\Controllers\Api\V1\GetAdminSiteLogoNameController;
 use App\Http\Controllers\Api\V1\Webhook\GetBalanceController;
 use App\Http\Controllers\Api\V1\Webhook\PlaceBetController;
+use App\Http\Controllers\Api\V1\Webhook\RollbackController;
 use App\Http\Controllers\Api\V1\Webhook\GameResultController;
 use App\Http\Controllers\Api\V1\Monitor\DataVisualizationController;
 use App\Http\Controllers\Api\V1\PromotionController;
@@ -36,9 +37,10 @@ Route::group(['prefix' => 'Seamless'], function () {
     Route::post('GetBalance', [GetBalanceController::class, 'getBalance']);
     Route::post('PlaceBet', [PlaceBetController::class, 'placeBetNew']);
     Route::post('GameResult', [GameResultController::class, 'gameResult']);
+    Route::post('Rollback', [RollbackController::class, 'rollback']);
     // Route::group(["middleware" => ["webhook_log"]], function(){
     // Route::post('GetGameList', [LaunchGameController::class, 'getGameList']);
-        // Route::post('Rollback', [RollbackController::class, 'rollback']);
+
 
 
     // Route::post('CancelBet', [CancelBetController::class, 'cancelBet']);
