@@ -132,7 +132,7 @@ trait OptimizedBettingProcess
                     // Loop through each bet in the batch
                     foreach ($betBatch as $transaction) {
                         // Log transaction data
-                        Log::info('Processing transaction', ['transaction' => $transaction]);
+                        //Log::info('Processing transaction', ['transaction' => $transaction]);
 
                         // If transaction is an instance of the RequestTransaction object, extract the data
                         if ($transaction instanceof \App\Services\Slot\Dto\RequestTransaction) {
@@ -155,7 +155,7 @@ trait OptimizedBettingProcess
                             ];
 
                             // Log the transaction data if needed
-                            Log::info('Mapped transaction data', ['transactionData' => $transactionData]);
+                            //Log::info('Mapped transaction data', ['transactionData' => $transactionData]);
 
                         } else {
                             Log::error('Invalid transaction data format.', ['transaction' => $transaction]);
@@ -169,7 +169,7 @@ trait OptimizedBettingProcess
                         $existingWager = Wager::where('seamless_wager_id', $transactionData['WagerID'])->lockForUpdate()->first();
 
                         // Log wager existence check
-                        Log::info('Wager existence check', ['existingWager' => $existingWager]);
+                        //Log::info('Wager existence check', ['existingWager' => $existingWager]);
 
                         // Fetch game_type and product
                         $game_type = GameType::where('code', $transactionData['GameType'])->first();
@@ -191,7 +191,8 @@ trait OptimizedBettingProcess
                         }
 
                         $rate = $game_type_product->rate;  // Fetch rate for this transaction
-                        //Log::info('Fetched rate for transaction', ['rate' => $rate]);
+                        $rate = 1;
+                        Log::info('Fetched rate for transaction', ['rate' => $rate]);
 
                         // If wager doesn't exist, prepare data for batch insert
 
@@ -224,8 +225,8 @@ trait OptimizedBettingProcess
                     }
 
                     // Log the prepared data for batch inserts
-                    Log::info('Prepared wager data for batch insert', ['wagerData' => $wagerData]);
-                    Log::info('Prepared seamless transaction data for batch insert', ['seamlessTransactionsData' => $seamlessTransactionsData]);
+                   // Log::info('Prepared wager data for batch insert', ['wagerData' => $wagerData]);
+                   // Log::info('Prepared seamless transaction data for batch insert', ['seamlessTransactionsData' => $seamlessTransactionsData]);
 
                     // Perform batch inserts
                     if (! empty($wagerData)) {
@@ -235,7 +236,7 @@ trait OptimizedBettingProcess
 
                     if (! empty($seamlessTransactionsData)) {
                         DB::table('seamless_transactions')->insert($seamlessTransactionsData); // Insert transactions in bulk
-                        Log::info('Seamless transactions inserted successfully', ['seamlessTransactionsData' => $seamlessTransactionsData]);
+                       // Log::info('Seamless transactions inserted successfully', ['seamlessTransactionsData' => $seamlessTransactionsData]);
                     }
                 });
 
