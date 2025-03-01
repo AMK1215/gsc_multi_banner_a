@@ -147,11 +147,11 @@ trait OptimizedBettingProcess
                                 'TransactionAmount' => $transaction->TransactionAmount,
                                 'PayoutAmount' => $transaction->PayoutAmount,
                                 'ValidBetAmount' => $transaction->ValidBetAmount,
-                                'Rate' => $transaction->Rate,
+                               // 'Rate' => $transaction->Rate,
 
                                 // Map GameType and ProductID if ActualGameTypeID or ActualProductID are null
-                                'ActualGameTypeID' => $transaction->ActualGameTypeID ?? $transaction->GameType,
-                                'ActualProductID' => $transaction->ActualProductID ?? $transaction->ProductID,
+                               // 'ActualGameTypeID' => $transaction->ActualGameTypeID ?? $transaction->GameType,
+                               // 'ActualProductID' => $transaction->ActualProductID ?? $transaction->ProductID,
                             ];
 
                             // Log the transaction data if needed
