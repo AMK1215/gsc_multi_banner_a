@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Webhook;
 
 use App\Enums\SlotWebhookResponseCode;
 use App\Enums\TransactionName;
-use App\Http\Controllers\Api\V1\Webhook\Traits\UseWebhook;
+use App\Http\Controllers\Api\V1\Webhook\Traits\OptimizedBettingProcess;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Slot\SlotWebhookRequest;
 use App\Models\Transaction;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class BuyOutController extends Controller
 {
-    use UseWebhook;
+    use OptimizedBettingProcess;
 
     public function buyOut(SlotWebhookRequest $request)
     {
