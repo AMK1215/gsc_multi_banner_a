@@ -36,13 +36,14 @@ class JackPotController extends Controller
 
             $seamless_transactions = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
 
-            foreach ($transactions as $seamless_transaction) {
+            foreach ($seamless_transactions as $seamless_transaction) {
                 $this->processTransfer(
                     User::adminUser(),
                     $request->getMember(),
                     TransactionName::JackPot,
                     $seamless_transaction->transaction_amount,
-                    $seamless_transaction->rate,
+                    //$seamless_transaction->rate,
+                    1,
                     [
                         'wager_id' => $seamless_transaction->wager_id,
                         'event_id' => $request->getMessageID(),
