@@ -23,7 +23,9 @@ use App\Http\Controllers\Api\V1\Monitor\DataVisualizationController;
 use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\Shan\ShanTransactionController;
 use App\Http\Controllers\Api\V1\Slot\GameController;
-use App\Http\Controllers\Api\V1\Slot\LaunchGameController;
+use App\Http\Controllers\Api\V1\Game\LaunchGameController;
+use App\Http\Controllers\Api\V1\Game\DirectLaunchGameController;
+
 use App\Http\Controllers\Api\V1\TransactionController;
 use App\Http\Controllers\Api\V1\WagerController;
 use App\Http\Controllers\Api\V1\WithDrawRequestController;
@@ -63,7 +65,7 @@ Route::post('transactions', [ShanTransactionController::class, 'index'])->middle
 Route::post('/transaction-details/{tranId}', [TransactionController::class, 'getTransactionDetails']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('GameLogin', [LaunchGameController::class, 'LaunchGame']);
+    //Route::post('GameLogin', [LaunchGameController::class, 'LaunchGame']);
     Route::get('wager-logs', [WagerController::class, 'index']); //GSC
     //Route::get('transactions', [TransactionController::class, 'index']);
     //Route::get('shan-transactions', [TransactionController::class, 'index'])->middleware('transaction');
@@ -102,6 +104,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('slotfishgamelist/{provider_id}/{game_type_id}/', [GameController::class, 'JILIgameList']);
     Route::get('gameFilter', [GameController::class, 'gameFilter']);
     Route::get('gamelistTest/{provider_id}/{game_type_id}/', [GameController::class, 'gameListTest']);
+
+    // gsc
+    Route::group(['prefix' => 'game'], function () {
+        Route::post('Seamless/LaunchGame', [LaunchGameController::class, 'launchGame']);
+        Route::get('gamelist/{provider_id}/{game_type_id}', [GameController::class, 'gameList']);
+    });
+
+    Route::group(['prefix' => 'direct'], function () {
+        Route::post('Seamless/LaunchGame', [DirectLaunchGameController::class, 'launchGame']);
+    });
 });
 
 // DataVisualize for real time Monitoring
