@@ -190,7 +190,7 @@ trait OptimizedBettingProcess
                         //     throw new \Exception('GameTypeProduct combination not found.');
                         // }
 
-                        $rate = $game_type_product->rate;  // Fetch rate for this transaction
+                        //$rate = $game_type_product->rate;  // Fetch rate for this transaction
                         $rate = 1;
                         Log::info('Fetched rate for transaction', ['rate' => $rate]);
 
