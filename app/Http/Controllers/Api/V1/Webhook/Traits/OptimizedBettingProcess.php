@@ -209,8 +209,8 @@ trait OptimizedBettingProcess
                         $seamlessTransactionsData[] = [
                             'user_id' => $userId,
                             'wager_id' => $existingWager ? $existingWager->id : $newWager,  // Ensure wager ID is used
-                            'game_type_id' => $transactionData['ActualGameTypeID'],
-                            'product_id' => $transactionData['ActualProductID'],
+                            'game_type_id' => $transactionData['GameType'],
+                            'product_id' => $transactionData['ProductID'],
                             'seamless_transaction_id' => $transactionData['TransactionID'],
                             'rate' => $rate,  // Use the fetched rate
                             'transaction_amount' => $transactionData['TransactionAmount'],
