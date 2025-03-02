@@ -19,59 +19,7 @@ class BonusController extends Controller
 {
     use OptimizedBettingProcess;
 
-//     public function bonus(SlotWebhookRequest $request)
-// {
-//     DB::beginTransaction();
-//     try {
-//         $validator = $request->check();
 
-//         if ($validator->fails()) {
-//             return $validator->getResponse();
-//         }
-
-//         $before_balance = $request->getMember()->balanceFloat;
-
-//         $event = $this->createEvent($request);
-
-//         $seamlessTransactionsData = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
-
-//         foreach ($seamlessTransactionsData as $seamless_transaction) {
-//             // Ensure the rate is set to 1 if it's null
-//             $rate = $seamless_transaction['rate'] ?? 1;
-
-//             $this->processTransfer(
-//                 User::adminUser(),
-//                 $request->getMember(),
-//                 TransactionName::Bonus,
-//                 $seamless_transaction['transaction_amount'],
-//                 $rate, // Use the default rate of 1 if null
-//                 [
-//                     'wager_id' => $seamless_transaction['wager_id'],
-//                     'event_id' => $request->getMessageID(),
-//                     'seamless_transaction_id' => $seamless_transaction['id'],
-//                 ]
-//             );
-//         }
-
-//         $request->getMember()->wallet->refreshBalance();
-
-//         $after_balance = $request->getMember()->balanceFloat;
-
-//         DB::commit();
-
-//         return SlotWebhookService::buildResponse(
-//             SlotWebhookResponseCode::Success,
-//             $after_balance,
-//             $before_balance
-//         );
-//     } catch (\Exception $e) {
-//         DB::rollBack();
-
-//         return response()->json([
-//             'message' => $e->getMessage(),
-//         ]);
-//     }
-// }
 
     public function bonus(SlotWebhookRequest $request)
     {
@@ -126,4 +74,59 @@ class BonusController extends Controller
             ]);
         }
     }
+
+
+    //     public function bonus(SlotWebhookRequest $request)
+// {
+//     DB::beginTransaction();
+//     try {
+//         $validator = $request->check();
+
+//         if ($validator->fails()) {
+//             return $validator->getResponse();
+//         }
+
+//         $before_balance = $request->getMember()->balanceFloat;
+
+//         $event = $this->createEvent($request);
+
+//         $seamlessTransactionsData = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
+
+//         foreach ($seamlessTransactionsData as $seamless_transaction) {
+//             // Ensure the rate is set to 1 if it's null
+//             $rate = $seamless_transaction['rate'] ?? 1;
+
+//             $this->processTransfer(
+//                 User::adminUser(),
+//                 $request->getMember(),
+//                 TransactionName::Bonus,
+//                 $seamless_transaction['transaction_amount'],
+//                 $rate, // Use the default rate of 1 if null
+//                 [
+//                     'wager_id' => $seamless_transaction['wager_id'],
+//                     'event_id' => $request->getMessageID(),
+//                     'seamless_transaction_id' => $seamless_transaction['id'],
+//                 ]
+//             );
+//         }
+
+//         $request->getMember()->wallet->refreshBalance();
+
+//         $after_balance = $request->getMember()->balanceFloat;
+
+//         DB::commit();
+
+//         return SlotWebhookService::buildResponse(
+//             SlotWebhookResponseCode::Success,
+//             $after_balance,
+//             $before_balance
+//         );
+//     } catch (\Exception $e) {
+//         DB::rollBack();
+
+//         return response()->json([
+//             'message' => $e->getMessage(),
+//         ]);
+//     }
+// }
 }
