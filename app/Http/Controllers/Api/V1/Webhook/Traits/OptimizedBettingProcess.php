@@ -223,6 +223,7 @@ trait OptimizedBettingProcess
                         ];
 
                     }
+                    return $seamlessTransactionsData;
 
                     // Log the prepared data for batch inserts
                    // Log::info('Prepared wager data for batch insert', ['wagerData' => $wagerData]);

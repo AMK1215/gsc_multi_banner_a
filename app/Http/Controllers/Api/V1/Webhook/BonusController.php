@@ -33,9 +33,9 @@ class BonusController extends Controller
 
             $event = $this->createEvent($request);
 
-            $seamless_transactions = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
+            $seamlessTransactionsData = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
 
-            foreach ($seamless_transactions as $seamless_transaction) {
+            foreach ($seamlessTransactionsData as $seamless_transaction) {
                 // TODO: ask: what if operator doesn't want to pay bonus
                 $this->processTransfer(
                     User::adminUser(),
