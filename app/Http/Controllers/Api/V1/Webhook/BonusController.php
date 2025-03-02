@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\V1\Webhook;
 use App\Enums\SlotWebhookResponseCode;
 use App\Enums\TransactionName;
 use App\Http\Controllers\Api\V1\Webhook\Traits\UseWebhook;
-use App\Http\Controllers\Api\V1\Webhook\Traits\OptimizedBettingProcess;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Slot\SlotWebhookRequest;
 use App\Models\Transaction;
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class BonusController extends Controller
 {
-    use OptimizedBettingProcess;
+    use UseWebhook;
 
     public function bonus(SlotWebhookRequest $request)
     {
@@ -36,21 +35,14 @@ class BonusController extends Controller
 
             $seamless_transactions = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
 
-            // Ensure $seamless_transactions is an array or collection before iterating
-            if (empty($seamless_transactions)) {
-                throw new \Exception("No transactions found or invalid transactions data.");
-            }
-
             foreach ($seamless_transactions as $seamless_transaction) {
-                // Ensure the rate is set to 1 if it's null
-                $rate = $seamless_transaction->rate ?? 1;
-
+                // TODO: ask: what if operator doesn't want to pay bonus
                 $this->processTransfer(
                     User::adminUser(),
                     $request->getMember(),
                     TransactionName::Bonus,
                     $seamless_transaction->transaction_amount,
-                    $rate, // Use the default rate of 1 if null
+                    $seamless_transaction->rate,
                     [
                         'wager_id' => $seamless_transaction->wager_id,
                         'event_id' => $request->getMessageID(),
@@ -62,6 +54,8 @@ class BonusController extends Controller
             $request->getMember()->wallet->refreshBalance();
 
             $after_balance = $request->getMember()->balanceFloat;
+
+            DB::commit();
 
             DB::commit();
 
