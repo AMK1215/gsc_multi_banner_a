@@ -36,17 +36,21 @@ class BonusController extends Controller
 
             $seamless_transactions = $this->createWagerTransactions($validator->getRequestTransactions(), $event);
 
+            // Ensure $seamless_transactions is an array or collection before iterating
+            if (empty($seamless_transactions)) {
+                throw new \Exception("No transactions found or invalid transactions data.");
+            }
+
             foreach ($seamless_transactions as $seamless_transaction) {
-                 $rate = $seamless_transaction->rate ?? 1;
-                // TODO: ask: what if operator doesn't want to pay bonus
+                // Ensure the rate is set to 1 if it's null
+                $rate = $seamless_transaction->rate ?? 1;
+
                 $this->processTransfer(
                     User::adminUser(),
                     $request->getMember(),
                     TransactionName::Bonus,
                     $seamless_transaction->transaction_amount,
-                    //$seamless_transaction->rate,
-                    $rate,
-
+                    $rate, // Use the default rate of 1 if null
                     [
                         'wager_id' => $seamless_transaction->wager_id,
                         'event_id' => $request->getMessageID(),
@@ -58,8 +62,6 @@ class BonusController extends Controller
             $request->getMember()->wallet->refreshBalance();
 
             $after_balance = $request->getMember()->balanceFloat;
-
-            DB::commit();
 
             DB::commit();
 
