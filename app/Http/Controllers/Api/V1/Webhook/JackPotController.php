@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class JackPotController extends Controller
 {
-    use OptimizedBettingProcess;
+    use UseWebhook;
 
     public function jackPot(SlotWebhookRequest $request)
     {
