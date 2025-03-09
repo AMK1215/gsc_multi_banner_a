@@ -51,7 +51,7 @@ class GameController extends Controller
             ->where('game_type_id', $game_type_id)
             ->where('status', 1)
             ->OrderBy('order', 'asc')
-            ->where('game_name', 'like', '%'.$request->name.'%')
+            ->where('name', 'like', '%'.$request->name.'%')
             ->get();
 
         return $this->success(GameDetailResource::collection($gameLists), 'Game Detail Successfully');
