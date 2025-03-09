@@ -57,6 +57,18 @@ class GameController extends Controller
         return $this->success(GameDetailResource::collection($gameLists), 'Game Detail Successfully');
     }
 
+    // public function gameList($product_id, $game_type_id)
+    // {
+    //     $gameLists = GameList::where('product_id', $product_id)
+    //         ->where('game_type_id', $game_type_id)
+    //         ->where('status', 1)
+    //         //->where('game_list_status', 1)
+    //         //->where('game_list_status', 0)
+    //         ->get();
+
+    //     return $this->success(GameDetailResource::collection($gameLists), 'Game Detail Successfully');
+    // }
+
     public function JILIgameList($product_id, $game_type_id, Request $request)
     {
         $gameLists = GameList::with('product')
