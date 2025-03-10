@@ -8,12 +8,13 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        Commands\GetDailySummary::class,
-        Commands\DownloadGameImages::class,
-        Commands\DeleteResultData::class,
-        Commands\DeleteBetData::class,
-        Commands\DeleteOldWagerBackups::class,
-        Commands\ArchiveOldBetNResult::class,
+         Commands\PullReport::class,
+        // Commands\GetDailySummary::class,
+        // Commands\DownloadGameImages::class,
+        // Commands\DeleteResultData::class,
+        // Commands\DeleteBetData::class,
+        // Commands\DeleteOldWagerBackups::class,
+        // Commands\ArchiveOldBetNResult::class,
 
     ];
 
@@ -22,12 +23,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('make:pull-report')->everyFiveSeconds();
+
         // $schedule->command('inspire')->hourly();
-        $schedule->command('summary:fetch')->dailyAt('00:01');
-        $schedule->command('archive:old-result')->dailyAt('00:00');
+        //$schedule->command('summary:fetch')->dailyAt('00:01');
+        //$schedule->command('archive:old-result')->dailyAt('00:00');
 
         //schedules the archive:old-bet-n-result command to run daily at 1:00 AM.
-        $schedule->command('archive:old-bet-n-result')->dailyAt('01:00');
+        //$schedule->command('archive:old-bet-n-result')->dailyAt('01:00');
         //$schedule->command('result:delete-old-backups {start_date} {end_date}');
         // Schedule the deletion of old results with static dates
         // $startDate = '2024-11-18';
