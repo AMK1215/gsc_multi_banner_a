@@ -99,11 +99,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('allGameProducts', [GameController::class, 'allGameProducts']);
     Route::get('gameType', [GameController::class, 'gameType']);
     Route::get('hotgamelist', [GameController::class, 'HotgameList']);
-    Route::get('pphotgamelist', [GameController::class, 'PPHotgameList']);
+    //Route::get('pphotgamelist', [GameController::class, 'PPHotgameList']);
     Route::get('gamelist/{provider_id}/{game_type_id}/', [GameController::class, 'gameList']);
-    Route::get('slotfishgamelist/{provider_id}/{game_type_id}/', [GameController::class, 'JILIgameList']);
+    //Route::get('slotfishgamelist/{provider_id}/{game_type_id}/', [GameController::class, 'JILIgameList']);
     Route::get('gameFilter', [GameController::class, 'gameFilter']);
-    Route::get('gamelistTest/{provider_id}/{game_type_id}/', [GameController::class, 'gameListTest']);
+    //Route::get('gamelistTest/{provider_id}/{game_type_id}/', [GameController::class, 'gameListTest']);
 
     // gsc
     Route::group(['prefix' => 'game'], function () {
