@@ -53,25 +53,25 @@
                             <thead>
                                 <tr>
                                     <th>AgentName</th>
-                                    <th>UserName</th>
+                                    <th>PlayerId</th>
+                                    <th>PlayerName</th>
                                     <th>TotalStake</th>
                                     <th>TotalBet</th>
                                     <th>TotalWin</th>
-                                    <th>TotalNetWin</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($report as $row)
+                                @foreach ($reports as $row)
                                 <tr>
                                     <td>{{ $row->agent_name }}</td>
-                                    <td>{{ $row->player_name }}</td>
+                                    <td>{{ $row->user_name}}</td>
+                                    <td>{{ $row->name }}</td>
                                     <td>{{ $row->total_count }}</td>
-                                    <td>{{ number_format($row->total_bet_amount, 2) }}</td>
-                                    <td>{{ number_format($row->total_win_amount, 2) }}</td>
-                                    <td>{{ number_format($row->total_net_win, 2) }}</td>
+                                    <td>{{ number_format($row->total_bet, 2) }}</td>
+                                    <td>{{ number_format($row->total_payout, 2) }}</td>
                                     <td><a
-                                            href="{{ route('admin.reports.details', $row->user_id) }}">Detail</a>
+                                            href="{{ route('admin.reports.details', $row->player_id) }}">Detail</a>
                                     </td>
                                 </tr>
                                 @endforeach

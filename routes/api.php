@@ -65,10 +65,7 @@ Route::post('transactions', [ShanTransactionController::class, 'index'])->middle
 Route::post('/transaction-details/{tranId}', [TransactionController::class, 'getTransactionDetails']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    //Route::post('GameLogin', [LaunchGameController::class, 'LaunchGame']);
     Route::get('wager-logs', [WagerController::class, 'index']); //GSC
-    //Route::get('transactions', [TransactionController::class, 'index']);
-    //Route::get('shan-transactions', [TransactionController::class, 'index'])->middleware('transaction');
     Route::get('shan-transactions', [TransactionController::class, 'GetPlayerShanReport']);
 
     Route::get('user', [AuthController::class, 'getUser']);
@@ -103,7 +100,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('gamelist/{provider_id}/{game_type_id}/', [GameController::class, 'gameList']);
     //Route::get('slotfishgamelist/{provider_id}/{game_type_id}/', [GameController::class, 'JILIgameList']);
     Route::get('gameFilter', [GameController::class, 'gameFilter']);
-    //Route::get('gamelistTest/{provider_id}/{game_type_id}/', [GameController::class, 'gameListTest']);
 
     // gsc
     Route::group(['prefix' => 'game'], function () {

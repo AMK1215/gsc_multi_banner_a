@@ -314,15 +314,6 @@
                     </li>
                     @can('senior_access')
                     <li class="nav-item">
-                        <a href="{{ route('admin.reports.senior') }}"
-                            class="nav-link {{ Route::current()->getName() == 'admin.reports.senior' ? 'active' : '' }}">
-                            <i class="fas fa-file-invoice"></i>
-                            <p>
-                                W/L Report 2
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ route('admin.SeniorHierarchy') }}"
                             class="nav-link {{ Route::current()->getName() == 'admin.SeniorHierarchy' ? 'active' : '' }}">
                             <i class="fas fa-info-circle"></i>
@@ -364,38 +355,6 @@
                             <i class="fas fa-swatchbook"></i>
                             <p>
                                 WithdrawTopTen
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('owner_access')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.reports.owner') }}"
-                            class="nav-link {{ Route::current()->getName() == 'admin.reports.owner' ? 'active' : '' }}">
-                            <i class="fas fa-file-invoice"></i>
-                            <p>
-                                W/L Report 2
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('admin.reportv2.index') }}"
-                            class="nav-link {{ Route::current()->getName() == 'admin.reportv2.index' ? 'active' : '' }}">
-                            <i class="fas fa-file-invoice"></i>
-                            <p>
-                                Backup-Report
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('player_index')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.reports.agent') }}"
-                            class="nav-link {{ Route::current()->getName() == 'admin.reports.agent' ? 'active' : '' }}">
-                            <i class="fas fa-file-invoice"></i>
-                            <p>
-                                W/L Report 2
                             </p>
                         </a>
                     </li>
@@ -570,7 +529,7 @@
 
                         </ul>
                     </li>
-                    @can('senior_access')
+                    <!-- @can('senior_access')
                     <li
                         class="nav-item {{ in_array(Route::currentRouteName(), ['admin.backup_bet_n_results.index', 'admin.senior_results.index', 'admin.senior_bet.index',
                          'admin.backup_results.index', 'admin.backup_bet_n_results.index', 'admin.reportv2.index', 'admin.senior_bet_n_result.index']) ? 'menu-open' : '' }}">
@@ -646,7 +605,7 @@
                             </li>
                         </ul>
                     </li>
-                    @endcan
+                    @endcan -->
                     @can('owner_access')
                     <li
                         class="nav-item {{ in_array(Route::currentRouteName(), ['admin.text.index', 'admin.banners.index', 'admin.video-upload.index', 'admin.adsbanners.index', 'admin.promotions.index', 'admin.winner_text.index']) ? 'menu-open' : '' }}">

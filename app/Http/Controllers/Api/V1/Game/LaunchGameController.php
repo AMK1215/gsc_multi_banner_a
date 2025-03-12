@@ -17,15 +17,12 @@ class LaunchGameController extends Controller
 
     public function launchGame(Request $request)
     {
-        //Log::info($request->all());
-        // Validate the request data
         $validatedData = $request->validate([
             'productId' => 'required|integer',
             'gameType' => 'required|integer',
             'gameId' => 'required',
         ]);
 
-        // Retrieve user and configuration settings
         $user = Auth::user();
         $operatorCode = Config::get('game.api.operator_code');
         $secretKey = Config::get('game.api.secret_key');
