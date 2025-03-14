@@ -13,7 +13,7 @@ class ContactController extends Controller
 {
     use HttpResponses;
 
-    public function get()
+    public function contact()
     {
         $player = Auth::user();
         $contact = Contact::where('agent_id', $player->agent_id)->get();

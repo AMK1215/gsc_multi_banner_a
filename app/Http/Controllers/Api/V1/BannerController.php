@@ -7,6 +7,7 @@ use App\Models\Admin\AdsVedio;
 use App\Models\Admin\Banner;
 use App\Models\Admin\BannerAds;
 use App\Models\Admin\BannerText;
+use App\Models\Admin\Promotion;
 use App\Models\Admin\TopTenWithdraw;
 use App\Models\WinnerText;
 use App\Traits\HttpResponses;
@@ -17,6 +18,28 @@ class BannerController extends Controller
     use HttpResponses;
 
     public function index()
+    {
+        $user = Auth::user();
+        if ($user->parent) {
+            $admin = $user->parent->parent ?? $user->parent;
+        } else {
+            $admin = $user;
+        }
+        $banners = Banner::where('admin_id', $admin->id)->get();
+        $rewards = TopTenWithdraw::where('admin_id', $admin->id)->get();
+        $banner_text = BannerText::where('admin_id', $admin->id)->latest()->first();
+        $ads_banner = BannerAds::where('admin_id', $admin->id)->latest()->first();
+        $promotions = Promotion::where('admin_id', $admin->id)->latest()->get();
+
+        return $this->success([
+            "banners" => $banners,
+            "banner_text" => $banner_text,
+            "ads_banner" => $ads_banner,
+            "rewards" => $rewards,
+            "promotions" => $promotions
+        ]);
+    }
+    public function banners()
     {
         $user = Auth::user();
 
@@ -76,21 +99,16 @@ class BannerController extends Controller
     public function bannerText()
     {
         $user = Auth::user();
-
         if ($user->parent) {
-            // If the user has a parent (Agent or Player), go up the hierarchy
             $admin = $user->parent->parent ?? $user->parent;
         } else {
-            // If the user is an Admin, they own the banners
             $admin = $user;
         }
-
-        $data = BannerText::where('admin_id', $admin->id)->get();
-
-        return $this->success($data, 'BannerTexts retrieved successfully.');
+        $data = BannerText::where('admin_id', $admin->id)->latest()->first();
+        return $this->success($data, message: 'BannerTexts retrieved successfully.');
     }
 
-    public function AdsBannerIndex()
+    public function adsBanner()
     {
         $user = Auth::user();
         //dd($user);
