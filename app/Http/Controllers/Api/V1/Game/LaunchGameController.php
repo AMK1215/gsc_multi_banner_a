@@ -18,9 +18,9 @@ class LaunchGameController extends Controller
     public function launchGame(Request $request)
     {
         $validatedData = $request->validate([
-            'productId' => 'required|integer',
-            'gameType' => 'required|integer',
-            'gameId' => 'required',
+            'provider_id' => 'required|integer',
+            'type_id' => 'required|integer',
+            'game_id' => 'required',
         ]);
 
         $user = Auth::user();
@@ -38,9 +38,9 @@ class LaunchGameController extends Controller
             'MemberName' => $user->user_name, // Assume username is the member identifier
             'DisplayName' => $validatedData['displayName'] ?? $user->name,
             'Password' => $password,
-            'ProductID' => $validatedData['productId'],
-            'GameType' => $validatedData['gameType'],
-            'GameID' => $validatedData['gameId'],
+            'ProductID' => $validatedData['provider_id'],
+            'GameType' => $validatedData['type_id'],
+            'GameID' => $validatedData['game_id'],
             'LanguageCode' => self::ENG_LANGUAGE_CODE,
             'Platform' => self::WEB_PLAT_FORM,
             'IPAddress' => $request->ip(),

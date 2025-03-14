@@ -89,4 +89,9 @@ class HomeController extends Controller
         $hot_games = GameList::hotGame()->get();
         return $this->success(GameListResource::collection($hot_games));
     }
+
+    public function launchGame()
+    {
+        
+    }
 }
