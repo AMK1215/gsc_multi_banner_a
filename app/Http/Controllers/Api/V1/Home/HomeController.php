@@ -8,14 +8,13 @@ use App\Http\Resources\Api\BannerResource;
 use App\Http\Resources\Api\BannerTextResource;
 use App\Http\Resources\Api\ContactResource;
 use App\Http\Resources\Api\PromotionResource;
-use App\Models\Admin\AdsVedio;
 use App\Models\Admin\Banner;
 use App\Models\Admin\BannerAds;
 use App\Models\Admin\BannerText;
+use App\Models\Admin\GameType;
 use App\Models\Admin\Promotion;
 use App\Models\Admin\TopTenWithdraw;
 use App\Models\Contact;
-use App\Models\WinnerText;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,6 +45,14 @@ class HomeController extends Controller
             "rewards" => $rewards,
             "promotions" => PromotionResource::collection($promotions),
             "contacts" => ContactResource::collection($contacts)
+        ]);
+    }
+
+    public function game()
+    {
+        $types = GameType::active()->get();
+        return $this->success([
+            "types" => $types
         ]);
     }
 }

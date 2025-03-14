@@ -28,4 +28,9 @@ class GameType extends Model
     {
         return asset('assets/img/game_type/'.$this->img);
     }
+
+    public function scopeActive($query)
+    {
+        return $this->where('status', 1);
+    }
 }
