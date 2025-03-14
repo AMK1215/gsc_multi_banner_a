@@ -61,7 +61,7 @@ class HomeController extends Controller
         $providers = GameType::with(['products' => function ($query) {
             $query->where('status', 1);
             $query->orderBy('order', 'asc');
-        }])->where('id', $id)->active()->first();
+        }])->where('id', $id)->where('status', 1)->first();
         if($providers){
             return $this->success(new GameProviderResource($providers));
         }else{
