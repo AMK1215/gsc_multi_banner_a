@@ -16,7 +16,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 // general unauth
 Route::get('promotion', [PromotionController::class, 'index']);
-Route::get('/home', [BannerController::class, index]);
+Route::get('/home', [BannerController::class, 'index']);
 Route::get('banner_text', [BannerController::class, 'bannerText']);
 Route::get('ads-banner', [BannerController::class, 'adsBanner']);
 Route::get('banners', [BannerController::class, 'banners']);
