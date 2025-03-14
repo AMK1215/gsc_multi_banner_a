@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Game\LaunchGameController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -13,6 +14,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // general
     Route::get('/home', [HomeController::class, 'index']);
+
+    // wallet
+    Route::get('/banks', [HomeController::class, 'banks']);
+
     // games
     Route::get('/game_types', [HomeController::class, 'gameTypes']);
     Route::get('/providers/{type}', [HomeController::class, 'providers']);

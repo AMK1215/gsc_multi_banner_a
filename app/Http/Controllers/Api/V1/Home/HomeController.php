@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\AdsBannerResource;
+use App\Http\Resources\Api\BankResource;
 use App\Http\Resources\Api\BannerResource;
 use App\Http\Resources\Api\BannerTextResource;
 use App\Http\Resources\Api\ContactResource;
@@ -11,6 +12,7 @@ use App\Http\Resources\Api\GameListResource;
 use App\Http\Resources\Api\GameProviderResource;
 use App\Http\Resources\Api\GameTypeResource;
 use App\Http\Resources\Api\PromotionResource;
+use App\Models\Admin\Bank;
 use App\Models\Admin\Banner;
 use App\Models\Admin\BannerAds;
 use App\Models\Admin\BannerText;
@@ -90,8 +92,10 @@ class HomeController extends Controller
         return $this->success(GameListResource::collection($hot_games));
     }
 
-    public function launchGame()
+    public function banks()
     {
-        
+        $player = Auth::user();
+        $data = Bank::where('agent_id', $player->agent_id)->get();
+        return $this->success(BankResource::collection($data), 'Payment Type list successfule');
     }
 }
