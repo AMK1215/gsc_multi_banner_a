@@ -20,16 +20,16 @@ class BannerController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->parent) {
-            $admin = $user->parent->parent ?? $user->parent;
+        if ($user->agent_id) {
+            $admin = $user->agent_id;
         } else {
-            $admin = $user;
+            $admin = $user->id;
         }
-        $banners = Banner::where('admin_id', $admin->id)->get();
-        $rewards = TopTenWithdraw::where('admin_id', $admin->id)->get();
-        $banner_text = BannerText::where('admin_id', $admin->id)->latest()->first();
-        $ads_banner = BannerAds::where('admin_id', $admin->id)->latest()->first();
-        $promotions = Promotion::where('admin_id', $admin->id)->latest()->get();
+        $banners = Banner::where('admin_id', $admin)->get();
+        $rewards = TopTenWithdraw::where('admin_id', $admin)->get();
+        $banner_text = BannerText::where('admin_id', $admin)->latest()->first();
+        $ads_banner = BannerAds::where('admin_id', $admin)->latest()->first();
+        $promotions = Promotion::where('admin_id', $admin)->latest()->get();
 
         return $this->success([
             "banners" => $banners,
