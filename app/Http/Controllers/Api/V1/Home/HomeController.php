@@ -7,6 +7,7 @@ use App\Http\Resources\Api\AdsBannerResource;
 use App\Http\Resources\Api\BannerResource;
 use App\Http\Resources\Api\BannerTextResource;
 use App\Http\Resources\Api\ContactResource;
+use App\Http\Resources\Api\GameProviderResource;
 use App\Http\Resources\Api\GameTypeResource;
 use App\Http\Resources\Api\PromotionResource;
 use App\Models\Admin\Banner;
@@ -61,6 +62,6 @@ class HomeController extends Controller
             $query->where('status', 1);
             $query->orderBy('order', 'asc');
         }])->where('id', $id)->active()->first();
-        return $this->success($providers);
+        return $this->success(new GameProviderResource($providers));
     }
 }
