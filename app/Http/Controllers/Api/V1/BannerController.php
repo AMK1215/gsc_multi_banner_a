@@ -20,8 +20,8 @@ class BannerController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->agent_id) {
-            $admin = $user->agent_id;
+        if ($user->parent) {
+            $admin = $user->parent->parent->id;
         } else {
             $admin = $user->id;
         }
