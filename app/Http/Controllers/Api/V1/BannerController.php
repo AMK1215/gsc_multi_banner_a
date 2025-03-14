@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\AdsBannerResource;
+use App\Http\Resources\Api\BannerResource;
+use App\Http\Resources\Api\BannerTextResource;
+use App\Http\Resources\Api\PromotionResource;
 use App\Models\Admin\AdsVedio;
 use App\Models\Admin\Banner;
 use App\Models\Admin\BannerAds;
@@ -32,11 +36,11 @@ class BannerController extends Controller
         $promotions = Promotion::where('admin_id', $admin)->latest()->get();
 
         return $this->success([
-            "banners" => $banners,
-            "banner_text" => $banner_text,
-            "ads_banner" => $ads_banner,
+            "banners" => BannerResource::collection($banners),
+            "banner_text" => new BannerTextResource($banner_text),
+            "ads_banner" => new AdsBannerResource($ads_banner),
             "rewards" => $rewards,
-            "promotions" => $promotions
+            "promotions" => PromotionResource::collection($promotions)
         ]);
     }
     public function banners()
