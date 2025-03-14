@@ -16,6 +16,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/game_types', [HomeController::class, 'gameTypes']);
     Route::get('/providers/{type}', [HomeController::class, 'providers']);
     Route::get('/game_lists/{type}/{provider}', [HomeController::class, 'gameLists']);
+    Route::get('/hot_game_lists', [HomeController::class, 'hotGameLists']);
 });
 
 
