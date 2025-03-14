@@ -14,6 +14,13 @@ class GameListResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'code' => $this->code,
+            'img' => $this->image_url,
+            'type_id' => $this->game_type_id,
+            'provider_id' => $this->product_id
+        ];
     }
 }

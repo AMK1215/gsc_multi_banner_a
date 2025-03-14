@@ -7,6 +7,7 @@ use App\Http\Resources\Api\AdsBannerResource;
 use App\Http\Resources\Api\BannerResource;
 use App\Http\Resources\Api\BannerTextResource;
 use App\Http\Resources\Api\ContactResource;
+use App\Http\Resources\Api\GameListResource;
 use App\Http\Resources\Api\GameProviderResource;
 use App\Http\Resources\Api\GameTypeResource;
 use App\Http\Resources\Api\PromotionResource;
@@ -80,6 +81,6 @@ class HomeController extends Controller
             ->OrderBy('order', 'asc')
             ->where('name', 'like', '%'.$request->name.'%')
             ->get();
-        return $this->success($gameLists);
+        return $this->success(GameListResource::collection($gameLists));
     }
 }
