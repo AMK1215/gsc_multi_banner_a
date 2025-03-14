@@ -62,6 +62,10 @@ class HomeController extends Controller
             $query->where('status', 1);
             $query->orderBy('order', 'asc');
         }])->where('id', $id)->active()->first();
-        return $this->success(new GameProviderResource($providers));
+        if($providers){
+            return $this->success(new GameProviderResource($providers));
+        }else{
+            return $this->error('', 'Providers Not Found', 404);
+        }
     }
 }
