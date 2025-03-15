@@ -60,7 +60,7 @@ class HomeController extends Controller
         $types = GameType::with(['products' => function ($query) {
             $query->where('status', 1);
             $query->orderBy('order', 'asc');
-        }])->where('status', 1)->first();
+        }])->where('status', 1)->get();
         return $this->success(GameTypeResource::collection($types));
     }
 
