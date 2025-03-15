@@ -19,6 +19,15 @@ class GameTypeResource extends JsonResource
             "name" => $this->name,
             "code" => $this->code,
             "img" => $this->img_url,
+            "providers" => $this->products->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'code' => $item->code,
+                    'name' => $item->name,
+                    'short_name' => $item->short_name,
+                    'img' => $item->img_url,
+                ];
+            })->toArray(),
         ];
     }
 }
