@@ -11,6 +11,7 @@ use App\Traits\HttpResponses;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -38,45 +39,42 @@ class TransactionController extends Controller
         return $this->success(TransactionResource::collection($transactions));
     }
 
-    public function getTransactionDetails($tranId)
+    public function getTransactionDetails(Request $request)
     {
-        $operatorId = 'delightMMK';
+        $validatedData = $request->validate([
+            'agentCode' => 'required',
+            'WagerID' => 'required',
+        ]);
 
-        $url = 'https://api.sm-sspi-prod.com/api/opgateway/v1/op/GetTransactionDetails';
+        $user = Auth::user();
+        $operatorCode = Config::get('game.api.operator_code');
+        $secretKey = Config::get('game.api.secret_key');
+        $apiUrl = Config::get('game.api.url').'/Seamless/LaunchGame';
+        $password = Config::get('game.api.password');
+        // Generate the signature
+        $requestTime = now()->format('YmdHis');
+        $signature = md5($operatorCode.$requestTime.'launchgame'.$secretKey);
 
-        // Generate the RequestDateTime in UTC
-        $requestDateTime = Carbon::now('UTC')->format('Y-m-d H:i:s');
-
-        // Generate the signature using MD5 hashing
-        $secretKey = '1OMJXOf88RHKpcuT';
-        $functionName = 'GetTransactionDetails';
-        $signatureString = $functionName.$requestDateTime.$operatorId.$secretKey;
-        $signature = md5($signatureString);
-
-        // Prepare request payload
-        $payload = [
-            'OperatorId' => $operatorId,
-            'RequestDateTime' => $requestDateTime,
-            'Signature' => $signature,
-            'TranId' => $tranId,
+        // Prepare the payload
+        $data = [
+            'agentCode' => $operatorCode,
+            'WagerID' => $request->wager_id, // Assume username is the member identifier
+         
         ];
-
         try {
-            // Make the POST request to the API endpoint
-            $response = Http::post($url, $payload);
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+            ])->post($apiUrl, $data);
 
-            // Check if the response is successful
             if ($response->successful()) {
-                return $response->json(); // Return the response data as JSON
-            } else {
-                Log::error('Failed to get transaction details', ['response' => $response->body()]);
-
-                return response()->json(['error' => 'Failed to get transaction details'], 500);
+                return $response->json();
             }
-        } catch (\Exception $e) {
-            Log::error('API request error', ['message' => $e->getMessage()]);
 
-            return response()->json(['error' => 'API request error'], 500);
+            return response()->json(['error' => 'API request failed', 'details' => $response->body()], $response->status());
+        } catch (\Throwable $e) {
+
+            return response()->json(['error' => 'An unexpected error occurred', 'exception' => $e->getMessage()], 500);
         }
     }
 

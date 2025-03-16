@@ -31,10 +31,10 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label class="form-label text-dark fw-bold" for="inputEmail1">Product Type</label>
-                                    <select name="product_id" id="" class="form-control">
+                                    <select name="product_code" id="" class="form-control">
                                         <option value="">Select Product type</option>
                                         @foreach($productTypes as $type)
-                                        <option value="{{$type->id}}" {{$type->id == request()->product_id ? 'selected' : ''}}>{{$type->provider_name}}</option>
+                                        <option value="{{$type->code}}" {{$type->id == request()->product_code ? 'selected' : ''}}>{{$type->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -66,31 +66,29 @@
                                     <th>Player Name</th>
                                     <th>ProviderName</th>
                                     <th>Game Name</th>
-                                    <th>History</th>
-                                    <th>Bet</th>
-                                    <th>Win</th>
-                                    <th>NetWin</th>
+                                    <!-- <th>History</th> -->
+                                    <th>BetAmount</th>
+                                    <th>WinloseAmount</th>
                                     <th>TransactionDateTime</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($details as $detail)
                                 <tr>
-                                    <td>{{ $detail->user_name }}</td>
-                                    <td>{{ $detail->provider_name }}</td>
+                                    <td>{{ $detail->member_name }}</td>
+                                    <td>{{ $detail->product_name }}</td>
                                     <td>{{ $detail->game_name }}</td>
 
-                                    <td>
+                                    <!-- <td>
                                         <a href="javascript:void(0);"
-                                            onclick="getTransactionDetails('{{ $detail->round_id }}')"
+                                            onclick="getTransactionDetails('{{ $detail->game_round_id }}')"
                                             style="color: blueviolet; text-decoration: underline;">
-                                            {{ $detail->round_id }}
+                                            {{ $detail->game_round_id }}
                                         </a>
-                                    </td>
-                                    <td>{{ number_format($detail->total_bet_amount, 2) }}</td>
-                                    <td>{{ number_format($detail->win_amount, 2) }}</td>
-                                    <td>{{ number_format($detail->net_win, 2) }}</td>
-                                    <td>{{ $detail->date }}</td>
+                                    </td> -->
+                                    <td>{{ number_format($detail->bet_amount, 2) }}</td>
+                                    <td>{{ number_format($detail->payout_amount, 2) }}</td>
+                                    <td>{{ $detail->created_at }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

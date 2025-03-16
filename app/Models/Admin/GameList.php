@@ -61,5 +61,8 @@ class GameList extends Model
         return asset('/game_logo/'.$this->image);
     }
 
-
+    public function scopeHotGame($query)
+    {
+        return $this->where('status', 1)->where('hot_status', 1);
+    }
 }

@@ -34,12 +34,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+require_once __DIR__.'/user.php';
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/player-change-password', [AuthController::class, 'playerChangePassword']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::get('contact', [ContactController::class, 'get']);
+
+
 
 // sameless route
 Route::group(['prefix' => 'Seamless'], function () {
@@ -65,10 +63,7 @@ Route::post('transactions', [ShanTransactionController::class, 'index'])->middle
 Route::post('/transaction-details/{tranId}', [TransactionController::class, 'getTransactionDetails']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    //Route::post('GameLogin', [LaunchGameController::class, 'LaunchGame']);
     Route::get('wager-logs', [WagerController::class, 'index']); //GSC
-    //Route::get('transactions', [TransactionController::class, 'index']);
-    //Route::get('shan-transactions', [TransactionController::class, 'index'])->middleware('transaction');
     Route::get('shan-transactions', [TransactionController::class, 'GetPlayerShanReport']);
 
     Route::get('user', [AuthController::class, 'getUser']);
@@ -85,16 +80,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('withdrawTest', [WithDrawRequestController::class, 'withdrawTest']);
     Route::get('withdrawlog', [WithDrawRequestController::class, 'log']);
     Route::get('sitelogo-name', [GetAdminSiteLogoNameController::class, 'GetSiteLogoAndSiteName']);
-    Route::get('banner', [BannerController::class, 'index']);
-    Route::get('videoads', [BannerController::class, 'ApiVideoads']);
     Route::get('toptenwithdraw', [BannerController::class, 'TopTen']);
 
-    Route::get('promotion', [PromotionController::class, 'index']);
-    Route::get('bannerText', [BannerController::class, 'bannerText']);
+    
     Route::get('winnerText', [BannerController::class, 'winnerText']);
-    Route::get('banner_Text', [BannerController::class, 'bannerTest']);
-    Route::get('popup-ads-banner', [BannerController::class, 'AdsBannerIndex']);
-    Route::get('ads-banner', [BannerController::class, 'AdsBannerTest']);
+    
     Route::get('gameTypeProducts/{id}', [GameController::class, 'gameTypeProducts']);
     Route::get('allGameProducts', [GameController::class, 'allGameProducts']);
     Route::get('gameType', [GameController::class, 'gameType']);
@@ -103,7 +93,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('gamelist/{provider_id}/{game_type_id}/', [GameController::class, 'gameList']);
     //Route::get('slotfishgamelist/{provider_id}/{game_type_id}/', [GameController::class, 'JILIgameList']);
     Route::get('gameFilter', [GameController::class, 'gameFilter']);
-    //Route::get('gamelistTest/{provider_id}/{game_type_id}/', [GameController::class, 'gameListTest']);
 
     // gsc
     Route::group(['prefix' => 'game'], function () {
