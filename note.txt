@@ -11,6 +11,8 @@ php -r "file_put_contents('/var/www/gsc_multi_banner_a/storage/logs/laravel.log'
 
 tail -f /var/www/slot_multi_banner_prod/storage/logs/laravel.log
 
+* * * * * cd /var/www/gsc_multi_banner_a && php artisan schedule:run >> /dev/null 2>&1
+
 sudo apt update && sudo apt install supervisor -y
 sudo nano /etc/supervisor/conf.d/laravel-queue.conf
 [program:laravel-queue]
@@ -288,3 +290,6 @@ mysql -u ponewine_remote -p -h 104.248.156.130 -P 3306
 
 
 sudo certbot --nginx -d delightmyanmarthb.xyz -d www.delightmyanmarthb.xyz -d ponewine20x.xyz -d www.ponewine20x.xyz -d lion11.online -d www.lion11.online -d ttt930sc.online -d www.ttt930sc.online
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'webService@#$2025team';
