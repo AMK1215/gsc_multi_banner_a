@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1\Webhook;
 use App\Enums\SlotWebhookResponseCode;
 use App\Enums\TransactionName;
 use App\Http\Controllers\Api\V1\Webhook\Traits\OptimizedBettingProcess;
+use App\Http\Controllers\Api\V1\Webhook\Traits\NewVersionOptimizedBettingProcess;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Slot\SlotWebhookRequest;
 use App\Models\Admin\GameType;
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 class PlaceBetController extends Controller
 {
-    use OptimizedBettingProcess;
+    use NewVersionOptimizedBettingProcess;
 
     // current running method
     public function placeBetNew(SlotWebhookRequest $request)
@@ -135,5 +137,3 @@ class PlaceBetController extends Controller
 
 
 }
-
-
