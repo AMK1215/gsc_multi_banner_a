@@ -245,7 +245,7 @@ trait NewVersionOptimizedBettingProcess
                         // Collect wager data for batch insert
                         $wagerData[] = [
                             'user_id' => $userId,
-                            'seamless_wager_id' => $transactionData['WagerID'],
+                            'seamless_wager_id' => $transactionData['WagerID'], // Use 'WagerID' instead of 'seamless_wager_id'
                             'status' => $transactionData['TransactionAmount'] > 0 ? WagerStatus::Win : WagerStatus::Lose,
                             'created_at' => now(),
                             'updated_at' => now(),
