@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 class PlaceBetController extends Controller
 {
-    use NewVersionOptimizedBettingProcess;
+    use OptimizedBettingProcess;
 
     public function placeBetNew(SlotWebhookRequest $request)
     {
