@@ -71,11 +71,11 @@ class PlaceBetController extends Controller
         }
 
         $before_balance = $request->getMember()->balanceFloat;
+            $event = $this->createEvent($request);
 
         DB::beginTransaction();
         try {
             // Create and store the event in the database
-            $event = $this->createEvent($request);
 
             // Insert bets using chunking for better performance
             $message = $this->insertBets($transactions, $event);  // Insert bets in chunks
