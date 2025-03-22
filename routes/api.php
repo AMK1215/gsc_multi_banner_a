@@ -82,12 +82,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('sitelogo-name', [GetAdminSiteLogoNameController::class, 'GetSiteLogoAndSiteName']);
     Route::get('toptenwithdraw', [BannerController::class, 'TopTen']);
 
-    
+
     Route::get('winnerText', [BannerController::class, 'winnerText']);
-    
+
     Route::get('gameTypeProducts/{id}', [GameController::class, 'gameTypeProducts']);
     Route::get('allGameProducts', [GameController::class, 'allGameProducts']);
-    Route::get('gameType', [GameController::class, 'gameType']);
+    Route::get('game_types', [GameController::class, 'gameType']);
     Route::get('hotgamelist', [GameController::class, 'HotgameList']);
     //Route::get('pphotgamelist', [GameController::class, 'PPHotgameList']);
     Route::get('gamelist/{provider_id}/{game_type_id}/', [GameController::class, 'gameList']);
